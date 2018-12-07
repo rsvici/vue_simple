@@ -1,60 +1,103 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <v-home></v-home>
+    <v-life></v-life>
+    <h2 ref="code">{{msg}},{{obj.name}}</h2>
+    <br>
+    <!-- 这是一个组件 -->
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
+      <li
+        v-for="(key,item) in list"
+        :key="item"
+        :class="{red:key==2,blue:key==3}"
+      >
+        {{item}}
+      </li>
     </ul>
-    <h2>Ecosystem</h2>
     <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
+      <li
+        v-for="item in list1"
+        :key="item.name"
+      >
+        {{item.name}}
+      </li>
     </ul>
+    <input
+      type="text"
+      v-model="msg"
+    >
+
+    <button v-on:click="getMsg()">获取表单的数据</button>
+    <button @click="getMsg()">获取表单的数据2</button>
+
+    <button @click="getJson()">请求数据</button>
+    <button @click="getJson1()">请求数据1</button>
+
   </div>
 </template>
 
 <script>
+import Home from "./components/Home.vue";
+import Life from "./components/Life.vue";
+import Axios from "axios"
+
 export default {
-  name: 'app',
-  data () {
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+      msg: "hello world",
+      obj: {
+        name: "sc"
+      },
+      list: [1, 2, 3, 45, 6, 7, 8, 9, 10],
+      list1: [
+        {
+          name: "sc"
+        },
+        {
+          name: "sc1"
+        },
+        {
+          name: "sc2"
+        }
+      ]
+    };
+  },
+  methods: {
+    getMsg: function() {
+      console.log(this.$refs.code);
+      this.$refs.code.style.background = "red";
+    },
+    getJson() {
+      let api="../package.json"
+      this.$http.get(api).then((res)=> {
+        console.log(res.body);
+        
+      }, function() {
+
+      });
+    },
+    getJson1() {
+      let api="../package.json"
+      Axios.get(api).then((res)=> {
+        console.log(res.data);
+        
+      }, function() {
+
+      });
+    },
+  },
+  components: {
+    "v-home": Home,
+    "v-life": Life
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.blue {
+  color: blue;
 }
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+.red {
+  color: red;
 }
 </style>
