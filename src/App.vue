@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <v-home></v-home>
-    <v-life></v-life>
     <h2 ref="code">{{msg}},{{obj.name}}</h2>
     <br>
     <!-- 这是一个组件 -->
@@ -33,13 +31,16 @@
     <button @click="getJson()">请求数据</button>
     <button @click="getJson1()">请求数据1</button>
 
+    <router-link to="/home">Go to home</router-link>
+    <router-link to="/life?id=123">Go to life</router-link>
+    <router-link to="/content/123">Go to content</router-link>
+
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Home from "./components/Home.vue";
-import Life from "./components/Life.vue";
-import Axios from "axios"
+import Axios from "axios";
 
 export default {
   data() {
@@ -68,27 +69,23 @@ export default {
       this.$refs.code.style.background = "red";
     },
     getJson() {
-      let api="../package.json"
-      this.$http.get(api).then((res)=> {
-        console.log(res.body);
-        
-      }, function() {
-
-      });
+      let api = "../package.json";
+      this.$http.get(api).then(
+        res => {
+          console.log(res.body);
+        },
+        function() {}
+      );
     },
     getJson1() {
-      let api="../package.json"
-      Axios.get(api).then((res)=> {
-        console.log(res.data);
-        
-      }, function() {
-
-      });
-    },
-  },
-  components: {
-    "v-home": Home,
-    "v-life": Life
+      let api = "../package.json";
+      Axios.get(api).then(
+        res => {
+          console.log(res.data);
+        },
+        function() {}
+      );
+    }
   }
 };
 </script>

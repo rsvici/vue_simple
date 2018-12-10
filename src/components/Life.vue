@@ -7,22 +7,22 @@
 </template>
 <script>
 export default {
-  data(){
-    return{
-      msg:''
-    }
-
+  data() {
+    return {
+      msg: ""
+    };
   },
-  methods:{
-    setMsg(){
-      this.msg="i am life fun"
+  methods: {
+    setMsg() {
+      this.msg = "i am life fun";
     }
   },
   beforeCreate() {
-    console.log('实例刚刚被创建')
+    console.log("实例刚刚被创建");
   },
   mounted() {
-    console.log('模板编译完成')
-  },
-}
+    console.log(this.$route.query);
+    console.log("模板编译完成");
+  }
+};
 </script>
