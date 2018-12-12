@@ -31,7 +31,7 @@
     <button @click="getJson()">请求数据</button>
     <button @click="getJson1()">请求数据1</button>
 
-    <router-link to="/home">Go to home</router-link>
+    <!-- <router-link to="/home">Go to home</router-link> -->
     <router-link to="/life?id=123">Go to life</router-link>
     <router-link to="/content/123">Go to content</router-link>
 
