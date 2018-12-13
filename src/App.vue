@@ -61,7 +61,7 @@ export default {
           name: "sc2"
         }
       ]
-    };
+    }
   },
   methods: {
     getMsg: function() {
